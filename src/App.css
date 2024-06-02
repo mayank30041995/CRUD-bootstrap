@@ -7,25 +7,45 @@
   pointer-events: none;
 }
 
+.paper {
+  height: 140vh;
+  border-radius: 6px;
+  width: -webkit-fill-available;
+  margin: 5% 15%;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
+.bg-body-secondary {
+  padding: 15px 35px;
+}
+.bg-body-secondary.bg {
+  background: #fff !important;
+}
+
+.dropdown-menu[data-bs-popper] {
+  left: -58px;
+}
+
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background: darkgrey;
+
+  /* font-size: calc(10px + 2vmin); */
 }
 
 .App-link {
-  color: #61dafb;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 @keyframes App-logo-spin {
