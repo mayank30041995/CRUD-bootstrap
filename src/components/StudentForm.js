@@ -6,6 +6,7 @@ import * as yup from 'yup'
 import countries from '../utils/country.json'
 import { StudentContext } from '../App'
 import { socketURL } from '../utils/url'
+import axios from 'axios'
 
 function StudentForm() {
   const { Formik } = formik
@@ -53,6 +54,7 @@ function StudentForm() {
 
   const handleSubmit = async (data) => {
     let requestOptions
+
     if (id) {
       requestOptions = {
         method: 'PUT',
@@ -61,6 +63,7 @@ function StudentForm() {
         },
         body: JSON.stringify({ ...data }),
       }
+
       fetch(`${socketURL}/students/${id}`, requestOptions)
         .then((response) => response.json())
         .then((result) => console.log('result', result))
@@ -86,8 +89,8 @@ function StudentForm() {
       <Formik
         enableReinitialize
         validationSchema={schema}
-        onSubmit={(data, e, val) => {
-          console.log('validationSchema', data, e, val)
+        onSubmit={(data, e) => {
+          console.log('validationSchema', data, e)
           handleSubmit(data)
         }}
         initialValues={{
@@ -326,7 +329,11 @@ function StudentForm() {
                 feedbackTooltip
               />
             </Form.Group>
-            <Button type="submit">Submit form</Button>
+            <div className="form-submit">
+              <Button type="submit" size="lg">
+                Submit form
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>

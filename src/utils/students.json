@@ -1,11 +1,10 @@
 {
   "students": [
     {
-      "id": 1,
-      "firstName": "LearnBest1",
+      "firstName": "LearnBest1QA",
       "lastName": "LearnBest2",
       "city": "Delhi",
-      "email": "learn@best.com",
+      "email": "learn*@best.com",
       "country": "Australia",
       "state": "Delhi",
       "age": "9-13 years",
@@ -15,7 +14,8 @@
       ],
       "zip": "3456346346",
       "file": null,
-      "terms": false
+      "terms": true,
+      "id": 1
     },
     {
       "id": 2,
@@ -58,7 +58,7 @@
       "email": "learn1@best.com",
       "country": "India",
       "state": "Delhi",
-      "age": "14-18 years",
+      "age": "19-24 years",
       "group": [
         "Group A",
         "Group C"
@@ -69,18 +69,19 @@
       "id": 4
     },
     {
-      "firstName": "LearnBestEW1",
-      "lastName": "LearnBestYF2",
-      "city": "Delhi",
-      "email": "learn1@best.com",
+      "firstName": "Mayank",
+      "lastName": "Sharma",
+      "city": "Bengaluru",
+      "email": "mayankece155@gmail.com",
       "country": "India",
-      "state": "Delhi",
-      "age": "14-18 years",
+      "state": "Karnataka",
+      "age": "19-24 years",
       "group": [
+        "Group A",
         "Group B",
-        "Group D"
+        "Group C"
       ],
-      "zip": "111111111",
+      "zip": "560103",
       "file": null,
       "terms": true,
       "id": 5
@@ -154,21 +155,21 @@
       "terms": false
     },
     {
-      "id": 10,
-      "firstName": "LearnBestXAA1",
-      "lastName": "LearnBestJFS2",
-      "city": "Delhi",
-      "email": "learn1@best.com",
-      "country": "Australia",
-      "state": "Delhi",
-      "age": "9-13 years",
+      "firstName": "LearnBestLJRR",
+      "lastName": "LearnBestLJd",
+      "city": "Noida",
+      "email": "learnBestLJH1\t@gmail.com",
+      "country": "UAE",
+      "state": "Uttar Pradesh",
+      "age": "14-18 years",
       "group": [
         "Group B",
-        "Group D"
+        "Group A"
       ],
-      "zip": "3456346346",
+      "zip": "201009",
       "file": null,
-      "terms": false
+      "terms": true,
+      "id": 10
     },
     {
       "id": 11,
@@ -511,8 +512,7 @@
       "terms": false
     },
     {
-      "id": 31,
-      "firstName": "LearnBesttQ",
+      "firstName": "LearnBestt9",
       "lastName": "LearnBestAQ",
       "city": "Delhi",
       "email": "learn1@best.com",
@@ -525,7 +525,8 @@
       ],
       "zip": "3456346346",
       "file": null,
-      "terms": false
+      "terms": true,
+      "id": 31
     },
     {
       "id": 32,
@@ -1104,22 +1105,6 @@
       "zip": "3456346346",
       "file": null,
       "terms": false
-    },
-    {
-      "firstName": "Mayank",
-      "lastName": "Sharma",
-      "city": "Noida",
-      "email": "mayankece155@gmail.com",
-      "country": "India",
-      "state": "Uttar Pradesh",
-      "age": "14-18 years",
-      "group": [
-        "Group B"
-      ],
-      "zip": "201009",
-      "file": null,
-      "terms": true,
-      "id": 66
     }
   ]
 }

@@ -54,6 +54,10 @@
   font-weight: bold;
   text-decoration: none;
 }
+.form-submit {
+  justify-content: center;
+  display: flex;
+}
 
 @keyframes App-logo-spin {
   from {
