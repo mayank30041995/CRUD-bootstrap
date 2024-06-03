@@ -43,6 +43,13 @@
   /* font-size: calc(10px + 2vmin); */
 }
 
+.span-file {
+  position: relative;
+  top: 8px;
+  font-weight: bold;
+  color: darkgray;
+}
+
 .App-link {
   font-weight: bold;
   text-decoration: none;

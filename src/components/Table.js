@@ -1,11 +1,35 @@
-import { useContext, useMemo } from 'react'
+import { useState } from 'react'
 import TableModel from 'react-bootstrap/Table'
-import { StudentContext } from '../App'
 import { Button } from 'react-bootstrap'
+import ModalAlert from './Modal'
+import { socketURL } from '../utils/url'
 
 function Table({ currentItems, editHandle }) {
+  const [show, setShow] = useState(false)
+  const [student, setStudent] = useState('')
+
+  const handleShow = (student, show, confirm = false) => {
+    const { id } = student
+    const requestOptions = {
+      method: 'Delete',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    setShow(show)
+    setStudent(student)
+    if (id && confirm) {
+      fetch(`${socketURL}/students/${id}`, requestOptions)
+        .then((response) => response.json())
+        .then((result) => console.log('result', result))
+        .catch((error) => console.log('error', error))
+    }
+  }
+
   return (
     <div>
+      <ModalAlert {...{ student, show, setShow, handleShow }} />
       <TableModel striped>
         <thead>
           <tr>
@@ -34,7 +58,12 @@ function Table({ currentItems, editHandle }) {
                   >
                     Edit
                   </Button>{' '}
-                  <Button variant="danger">Delete</Button>{' '}
+                  <Button
+                    variant="danger"
+                    onClick={(e) => handleShow(student, true)}
+                  >
+                    Delete
+                  </Button>{' '}
                 </td>
               </tr>
             )

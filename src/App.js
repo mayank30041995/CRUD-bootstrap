@@ -1,21 +1,21 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
-import { useEffect, useState, createContext } from 'react'
-import About from './pages/About'
-import Home from './pages/Home'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import { useEffect, useState, createContext, lazy, Suspense } from 'react'
 import Header from './components/Header'
-import Form from './pages/Form'
-import FAQ from './pages/FAQ'
+import Home from './pages/Home'
 import Register from './pages/Register'
 import data from './utils/students.json'
+
+// Lazy load
+const FAQ = lazy(() => import('./pages/FAQ'))
+const About = lazy(() => import('./pages/About'))
+const Form = lazy(() => import('./pages/Form'))
 
 export const StudentContext = createContext()
 
 function App() {
   const navigate = useNavigate()
-
   const [students, setStudents] = useState([])
-
   const [formData, setFormData] = useState(null)
 
   function editHandle(studentDetail) {
@@ -28,8 +28,8 @@ function App() {
   }
 
   useEffect(() => {
-    if (data.length > 0) {
-      setStudents(data)
+    if (data.students.length > 0) {
+      setStudents(data.students)
     }
   }, [])
 
@@ -46,17 +46,40 @@ function App() {
             </StudentContext.Provider>
           }
         />
-        <Route path="/about" element={<About />} />
-        <Route path="/form" element={<Form />} />
+        <Route
+          path="/about"
+          element={
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <About />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/form"
+          element={
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <Form />
+            </Suspense>
+          }
+        />
         <Route
           path="/form/:id"
           element={
             <StudentContext.Provider value={{ formData }}>
-              <Form />
+              <Suspense fallback={<h1>Loading...</h1>}>
+                <Form />
+              </Suspense>
             </StudentContext.Provider>
           }
         />
-        <Route path="/faq" element={<FAQ />} />
+        <Route
+          path="/faq"
+          element={
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <FAQ />
+            </Suspense>
+          }
+        />
         <Route path="/register" element={<Register />} />
       </Routes>
     </div>

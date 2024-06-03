@@ -1,19 +1,21 @@
 import { useContext } from 'react'
-import Button from 'react-bootstrap/Button'
-import Col from 'react-bootstrap/Col'
-import Form from 'react-bootstrap/Form'
-import InputGroup from 'react-bootstrap/InputGroup'
-import Row from 'react-bootstrap/Row'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap'
 import * as formik from 'formik'
 import * as yup from 'yup'
+import countries from '../utils/country.json'
 import { StudentContext } from '../App'
+import { socketURL } from '../utils/url'
 
 function StudentForm() {
+  const { Formik } = formik
   const studentForm = useContext(StudentContext)
   const { formData } = studentForm || {}
+  const { id } = useParams()
+  const navigate = useNavigate()
+  // var uid = new Date().getTime().toString(36)
 
   const {
-    id,
     firstName,
     lastName,
     email,
@@ -26,9 +28,6 @@ function StudentForm() {
     zip,
     file,
   } = formData || {}
-
-  console.log('formDataformDataformData', formData)
-  const { Formik } = formik
 
   const schema = yup.object().shape({
     firstName: yup
@@ -52,21 +51,54 @@ function StudentForm() {
     terms: yup.bool().required().oneOf([true], 'terms must be accepted'),
   })
 
+  const handleSubmit = async (data) => {
+    let requestOptions
+    if (id) {
+      requestOptions = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...data }),
+      }
+      fetch(`${socketURL}/students/${id}`, requestOptions)
+        .then((response) => response.json())
+        .then((result) => console.log('result', result))
+        .catch((error) => console.log('error', error))
+    } else {
+      requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...data }),
+      }
+      fetch(`${socketURL}/students`, requestOptions)
+        .then((response) => response.json())
+        .then((result) => console.log('result', result))
+        .catch((error) => console.log('error', error))
+    }
+    navigate(`/students`)
+  }
+
   return (
     <div className="bg-body-secondary bg">
       <Formik
         enableReinitialize
         validationSchema={schema}
-        onSubmit={(e) => console.log('form submit', e)}
+        onSubmit={(data, e, val) => {
+          console.log('validationSchema', data, e, val)
+          handleSubmit(data)
+        }}
         initialValues={{
           firstName: firstName || '',
           lastName: lastName || '',
-          email: email || '',
           city: city || '',
+          email: email || '',
           country: country || '',
+          state: state || '',
           age: age || '',
           group: group || [],
-          state: state || '',
           zip: zip || '',
           file: file || null,
           terms: terms || false,
@@ -222,16 +254,16 @@ function StudentForm() {
                 {['5-8 years', '9-13 years', '14-18 years', '19-24 years'].map(
                   (value) => (
                     <div key={`inline-${value}`} className="mb-3">
-                      <Form.Check inline type="radio" id={`inline-${value}-2`}>
-                        <Form.Check.Input
-                          type="radio"
-                          label={value}
-                          name="age"
-                          defaultChecked={values.age !== value ? false : true}
-                          onChange={handleChange}
-                        />
-                        <Form.Check.Label>{`${value}`}</Form.Check.Label>
-                      </Form.Check>
+                      <Form.Check
+                        inline
+                        label={value}
+                        value={value}
+                        name="age"
+                        defaultChecked={values.age !== value ? false : true}
+                        onChange={handleChange}
+                        type="radio"
+                        id={`inline-${value}-2`}
+                      />
                     </div>
                   )
                 )}
@@ -252,9 +284,11 @@ function StudentForm() {
                     aria-label="Default select example"
                   >
                     <option value="">Select Country</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {countries.map((country) => (
+                      <option key={country.id} value={country.name}>
+                        {country.name}
+                      </option>
+                    ))}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.country}
@@ -269,10 +303,12 @@ function StudentForm() {
                 type="file"
                 required
                 name="file"
+                filename={values.file}
                 onChange={handleChange}
                 isInvalid={!!errors.file}
               />
 
+              {formData && <span className="span-file">{values.file}</span>}
               <Form.Control.Feedback type="invalid" tooltip>
                 {errors.file}
               </Form.Control.Feedback>
