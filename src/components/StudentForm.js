@@ -6,7 +6,6 @@ import * as yup from 'yup'
 import countries from '../utils/country.json'
 import { StudentContext } from '../App'
 import { socketURL } from '../utils/url'
-import axios from 'axios'
 
 function StudentForm() {
   const { Formik } = formik
