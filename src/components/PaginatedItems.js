@@ -1,7 +1,9 @@
-import React, { useContext, useMemo, useState } from 'react'
+import React, { Suspense, lazy, useContext, useMemo, useState } from 'react'
 import ReactPaginate from 'react-paginate'
-import Table from './Table'
+// import Table from './Table'
 import { StudentContext } from '../App'
+
+const Table = lazy(() => import('./Table'))
 
 function PaginatedItems({ itemsPerPage }) {
   const [itemOffset, setItemOffset] = useState(0)
@@ -31,26 +33,29 @@ function PaginatedItems({ itemsPerPage }) {
 
   return (
     <div className="bg-body-secondary bg">
-      <Table {...{ currentItems, editHandle }} />
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-        breakClassName={'page-item'}
-        breakLinkClassName={'page-link'}
-        containerClassName={'pagination'}
-        pageClassName={'page-item'}
-        pageLinkClassName={'page-link'}
-        previousClassName={'page-item'}
-        previousLinkClassName={'page-link'}
-        nextClassName={'page-item'}
-        nextLinkClassName={'page-link'}
-        activeClassName={'active'}
-      />
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Table {...{ currentItems, editHandle }} />
+
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+          breakClassName={'page-item'}
+          breakLinkClassName={'page-link'}
+          containerClassName={'pagination'}
+          pageClassName={'page-item'}
+          pageLinkClassName={'page-link'}
+          previousClassName={'page-item'}
+          previousLinkClassName={'page-link'}
+          nextClassName={'page-item'}
+          nextLinkClassName={'page-link'}
+          activeClassName={'active'}
+        />
+      </Suspense>
     </div>
   )
 }
