@@ -1,3 +1,4 @@
+import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
@@ -6,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Link } from 'react-router-dom'
 
-function Header() {
+function Header({ handleSearch }, inputRef) {
   return (
     <Navbar expand="sm" className="bg-body-secondary">
       <Container fluid>
@@ -45,12 +46,17 @@ function Header() {
             placeholder="Search"
             className="me-2"
             aria-label="Search"
+            ref={inputRef}
           />
-          <Button variant="outline-success">Search</Button>
+          <Button variant="outline-success" onClick={handleSearch}>
+            Search
+          </Button>
         </Form>
       </Container>
     </Navbar>
   )
 }
 
-export default Header
+const forwardInput = React.forwardRef(Header)
+
+export default forwardInput

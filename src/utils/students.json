@@ -121,7 +121,6 @@
       "terms": false
     },
     {
-      "id": 8,
       "firstName": "LearnBestGDS1",
       "lastName": "LearnBestIKG2",
       "city": "Delhi",
@@ -135,7 +134,8 @@
       ],
       "zip": "3456346346",
       "file": null,
-      "terms": false
+      "terms": true,
+      "id": 8
     },
     {
       "id": 9,
@@ -1105,6 +1105,74 @@
       "zip": "3456346346",
       "file": null,
       "terms": false
+    },
+    {
+      "firstName": "Mayank",
+      "lastName": "Sharma",
+      "city": "Bengaluru",
+      "email": "mayankece155@gmail.com",
+      "country": "India",
+      "state": "Karnataka",
+      "age": "9-13 years",
+      "group": [
+        "Group A",
+        "Group B",
+        "Group D"
+      ],
+      "zip": "560103",
+      "file": null,
+      "terms": true,
+      "id": 66
+    },
+    {
+      "firstName": "Test ",
+      "lastName": "Check",
+      "city": "Noida",
+      "email": "test@gmail.com",
+      "country": "UAE",
+      "state": "Uttar Pradesh",
+      "age": "19-24 years",
+      "group": [
+        "Group B",
+        "Group A"
+      ],
+      "zip": "201009",
+      "file": null,
+      "terms": true,
+      "id": 67
+    },
+    {
+      "firstName": "abc",
+      "lastName": "xyz",
+      "city": "abc",
+      "email": "abc@gmail.com",
+      "country": "Australia",
+      "state": "abc",
+      "age": "19-24 years",
+      "group": [
+        "Group B",
+        "Group D"
+      ],
+      "zip": "560103",
+      "file": null,
+      "terms": true,
+      "id": 68
+    },
+    {
+      "firstName": "abc",
+      "lastName": "abc",
+      "city": "Bengaluru",
+      "email": "abc@gmail.com",
+      "country": "India",
+      "state": "Karnataka",
+      "age": "9-13 years",
+      "group": [
+        "Group A"
+      ],
+      "zip": "560103",
+      "file": null,
+      "terms": true,
+      "id": 69
     }
   ]
 }

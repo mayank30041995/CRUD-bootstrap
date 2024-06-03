@@ -1,6 +1,13 @@
 import './App.css'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import { useEffect, useState, createContext, lazy, Suspense } from 'react'
+import {
+  useEffect,
+  useState,
+  createContext,
+  lazy,
+  Suspense,
+  useRef,
+} from 'react'
 import Header from './components/Header'
 import Home from './pages/Home'
 import Register from './pages/Register'
@@ -15,15 +22,37 @@ export const StudentContext = createContext()
 
 function App() {
   const navigate = useNavigate()
+  const inputRef = useRef()
+  const [searchParam] = useState(['firstName', 'age'])
   const [students, setStudents] = useState([])
   const [formData, setFormData] = useState(null)
 
+  // Edit On Table
   function editHandle(studentDetail) {
     if (studentDetail !== null) {
       setFormData(studentDetail)
       navigate(`/form/${studentDetail.id}`)
     } else {
       setFormData(null)
+    }
+  }
+
+  // Header Search
+  const handleSearch = () => {
+    let searchInput = inputRef.current.value
+    const filteredItems = data.students
+    if (searchInput.length > 0 && filteredItems.length > 0) {
+      const filtered = filteredItems.filter((item) => {
+        return searchParam.some((newItem) => {
+          return item[newItem]
+            .toString()
+            .toLowerCase()
+            .includes(searchInput.toLowerCase())
+        })
+      })
+      setStudents(filtered)
+    } else {
+      setStudents(filteredItems)
     }
   }
 
@@ -35,7 +64,7 @@ function App() {
 
   return (
     <div>
-      <Header />
+      <Header {...{ handleSearch, ref: inputRef }} />
 
       <Routes>
         <Route
